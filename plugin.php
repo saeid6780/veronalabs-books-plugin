@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name:     Example Plugin
+ * Plugin Name:     Book Info
  * Plugin URI:      https://www.veronalabs.com
- * Plugin Prefix:   EXAMPLE_PLUGIN
- * Description:     Example WordPress Plugin Based on Rabbit Framework!
- * Author:          VeronaLabs
+ * Plugin Prefix:   VBI
+ * Description:     Book Info WordPress Plugin Based on Rabbit Framework!
+ * Author:          saeid6780
  * Author URI:      https://veronalabs.com
- * Text Domain:     example-plugin
+ * Text Domain:     vlab-book-info
  * Domain Path:     /languages
  * Version:         1.0
  */
@@ -26,10 +26,10 @@ if (file_exists(dirname(__FILE__) . '/vendor/autoload.php')) {
 }
 
 /**
- * Class ExamplePluginInit
- * @package ExamplePluginInit
+ * Class BookInfoPluginInit
+ * @package BookInfoPluginInit
  */
-class ExamplePluginInit extends Singleton
+class BookInfoPluginInit extends Singleton
 {
     /**
      * @var Container
@@ -37,7 +37,7 @@ class ExamplePluginInit extends Singleton
     private $application;
 
     /**
-     * ExamplePluginInit constructor.
+     * BookInfoPluginInit constructor.
      */
     public function __construct()
     {
@@ -112,13 +112,13 @@ class ExamplePluginInit extends Singleton
 }
 
 /**
- * Returns the main instance of ExamplePluginInit.
+ * Returns the main instance of BookInfoPluginInit.
  *
- * @return ExamplePluginInit
+ * @return BookInfoPluginInit
  */
-function examplePlugin()
+function bookInfoPlugin()
 {
-    return ExamplePluginInit::get();
+    return BookInfoPluginInit::get();
 }
 
-examplePlugin();
+bookInfoPlugin();

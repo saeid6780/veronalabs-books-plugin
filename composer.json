@@ -1,20 +1,20 @@
 {
-    "name": "veronalabs/plugin",
-    "description": "Example WordPress Plugin Based on Rabbit Framework!",
+    "name": "saeid6780/veronalabs-books-plugin",
+    "description": "Book Info WordPress Plugin Based on Rabbit Framework!",
     "keywords": [
         "wordpress",
         "plugin",
         "rabbit",
         "framework"
     ],
-    "homepage": "https://github.com/veronalabs/plugin",
+    "homepage": "https://github.com/saeid6780/veronalabs-books-plugin",
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/veronalabs/plugin/issues"
+        "issues": "https://github.com/saeid6780/veronalabs-books-plugin/issues"
     },
     "autoload": {
         "psr-4": {
-            "ExamplePlugin\\": "src"
+            "bookInfoPlugin\\": "src"
         }
     },
     "require": {

@@ -1,7 +1,7 @@
 {
   "name": "veronalabs-plugin",
   "version": "1.0.0",
-  "description": "Example WordPress Plugin Based on Rabbit Framework!",
+  "description": "Book Info WordPress Plugin Based on Rabbit Framework!",
   "main": "index.js",
   "scripts": {
     "start": "npm run dev & npm run watch",
