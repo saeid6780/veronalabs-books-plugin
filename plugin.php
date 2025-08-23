@@ -26,7 +26,7 @@ use BookInfoPlugin\Providers\BooksSchemaServiceProvider;
 if (file_exists(dirname(__FILE__) . '/vendor/autoload.php')) {
     require dirname(__FILE__) . '/vendor/autoload.php';
 }
-
+require_once plugin_dir_path(__FILE__) . 'includes' . '/defines.php';
 /**
  * Class BookInfoPluginInit
  * @package BookInfoPluginInit
@@ -50,23 +50,22 @@ class BookInfoPluginInit extends Singleton
     public function init()
     {
         try {
-
             /**
              * Load service providers
              */
-            $this->application->addServiceProvider(RedirectServiceProvider::class);
-            $this->application->addServiceProvider(DatabaseServiceProvider::class);
-            $this->application->addServiceProvider(TemplatesServiceProvider::class);
-            $this->application->addServiceProvider(LoggerServiceProvider::class);
+            $this->application->addServiceProvider( RedirectServiceProvider::class );
+            $this->application->addServiceProvider( DatabaseServiceProvider::class );
+            $this->application->addServiceProvider( TemplatesServiceProvider::class );
+            $this->application->addServiceProvider( LoggerServiceProvider::class );
             // Load your own service providers here...
-            $this->application->addServiceProvider(BooksSchemaServiceProvider::class);
+            $this->application->addServiceProvider( BooksSchemaServiceProvider::class );
 
             /**
              * Activation hooks
              */
             $this->application->onActivation(function () {
                 // Create tables or something else
-                do_action('bookinfo/activate');
+                do_action( 'bookinfo/activate' );
 
             });
 
@@ -74,16 +73,14 @@ class BookInfoPluginInit extends Singleton
              * Deactivation hooks
              */
             $this->application->onDeactivation(function () {
-                do_action('bookinfo/deactivate'); // Clear events, cache or something else
+                do_action( 'bookinfo/deactivate' ); // Clear events, cache or something else
             });
 
-            $this->application->boot(function (Plugin $plugin) {
+            $this->application->boot(function ( Plugin $plugin ) {
                 $plugin->loadPluginTextDomain();
 
                 // load template
-                $this->application->template('plugin-template.php', ['foo' => 'bar']);
-
-                ///...
+                //$this->application->template('plugin-template.php', ['foo' => 'bar']);
 
             });
 
