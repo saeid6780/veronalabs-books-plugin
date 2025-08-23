@@ -16,7 +16,7 @@ class BooksSchemaServiceProvider extends AbstractServiceProvider implements Boot
      * @var array
      */
     protected $provides = [
-        'booksschema',
+        'books_schema',
     ];
 
     public function register() {
@@ -25,6 +25,10 @@ class BooksSchemaServiceProvider extends AbstractServiceProvider implements Boot
     public function boot() {
         try {
             add_action( 'bookinfo/activate', [ $this, 'create_table' ] );
+            register_uninstall_hook(
+                BOOK_INFO_DIR . 'plugin.php',
+                [ $this, 'onUninstall']
+            );
         } catch ( \Throwable $e ) {
             error_log( 'BooksSchemaServiceProvider boot error: ' . $e->getMessage() );
         }
@@ -45,5 +49,11 @@ class BooksSchemaServiceProvider extends AbstractServiceProvider implements Boot
         ) $charset_collate;";
 
         dbDelta( $sql );
+    }
+    public function onUninstall()
+    {
+        global $wpdb;
+        $table = $wpdb->prefix . 'books_info';
+        $wpdb->query( "DROP TABLE IF EXISTS {$table}" );
     }
 }
