@@ -11,6 +11,7 @@
  * Version:         1.0
  */
 
+
 use Rabbit\Application;
 use Rabbit\Redirects\RedirectServiceProvider;
 use Rabbit\Database\DatabaseServiceProvider;
@@ -20,6 +21,7 @@ use Rabbit\Redirects\AdminNotice;
 use Rabbit\Templates\TemplatesServiceProvider;
 use Rabbit\Utils\Singleton;
 use League\Container\Container;
+use BookInfoPlugin\Providers\BooksSchemaServiceProvider;
 
 if (file_exists(dirname(__FILE__) . '/vendor/autoload.php')) {
     require dirname(__FILE__) . '/vendor/autoload.php';
@@ -57,20 +59,22 @@ class BookInfoPluginInit extends Singleton
             $this->application->addServiceProvider(TemplatesServiceProvider::class);
             $this->application->addServiceProvider(LoggerServiceProvider::class);
             // Load your own service providers here...
-
+            $this->application->addServiceProvider(BooksSchemaServiceProvider::class);
 
             /**
              * Activation hooks
              */
             $this->application->onActivation(function () {
                 // Create tables or something else
+                do_action('bookinfo/activate');
+
             });
 
             /**
              * Deactivation hooks
              */
             $this->application->onDeactivation(function () {
-                // Clear events, cache or something else
+                do_action('bookinfo/deactivate'); // Clear events, cache or something else
             });
 
             $this->application->boot(function (Plugin $plugin) {
