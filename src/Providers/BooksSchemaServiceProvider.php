@@ -27,7 +27,7 @@ class BooksSchemaServiceProvider extends AbstractServiceProvider implements Boot
             add_action( 'bookinfo/activate', [ $this, 'create_table' ] );
             register_uninstall_hook(
                 BOOK_INFO_DIR . 'plugin.php',
-                [ $this, 'onUninstall']
+                [ self::class, 'onUninstall']
             );
         } catch ( \Throwable $e ) {
             error_log( 'BooksSchemaServiceProvider boot error: ' . $e->getMessage() );
@@ -50,7 +50,7 @@ class BooksSchemaServiceProvider extends AbstractServiceProvider implements Boot
 
         dbDelta( $sql );
     }
-    public function onUninstall()
+    public static function onUninstall()
     {
         global $wpdb;
         $table = $wpdb->prefix . 'books_info';
