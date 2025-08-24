@@ -22,6 +22,8 @@ use Rabbit\Templates\TemplatesServiceProvider;
 use Rabbit\Utils\Singleton;
 use League\Container\Container;
 use BookInfoPlugin\Providers\BooksSchemaServiceProvider;
+use BookInfoPlugin\Providers\BooksCPTServiceProvider;
+use BookInfoPlugin\Providers\BooksMenuServiceProvider;
 
 if (file_exists(dirname(__FILE__) . '/vendor/autoload.php')) {
     require dirname(__FILE__) . '/vendor/autoload.php';
@@ -59,6 +61,8 @@ class BookInfoPluginInit extends Singleton
             $this->application->addServiceProvider( LoggerServiceProvider::class );
             // Load your own service providers here...
             $this->application->addServiceProvider( BooksSchemaServiceProvider::class );
+            $this->application->addServiceProvider( BooksCPTServiceProvider::class );
+            $this->application->addServiceProvider( BooksMenuServiceProvider::class );
 
             /**
              * Activation hooks

@@ -10,7 +10,7 @@ class BooksCPTServiceProvider extends AbstractServiceProvider implements Bootabl
 
     public function boot(): void
     {
-        add_action('init', [ $this, 'register_post_type_and_taxonomies' ]);
+        add_action( 'init', [ $this, 'register_post_type_and_taxonomies' ]);
     }
 
     public function register_post_type_and_taxonomies(): void
@@ -41,8 +41,8 @@ class BooksCPTServiceProvider extends AbstractServiceProvider implements Bootabl
         register_post_type( 'book', [
             'labels'              => $book_labels,
             'public'              => true,
-            'show_ui'             => false, // hide default UI (we’ll replace with WP_List_Table)
-            'show_in_menu'        => true,  // menu will be registered manually later
+            'show_ui'             => true, // hide default UI (we’ll replace with WP_List_Table)
+            'show_in_menu'        => false,  // menu will be registered manually later
             'supports'            => [ 'title', 'editor', 'thumbnail' ],
             'has_archive'         => true,
             'show_in_rest'        => true,
