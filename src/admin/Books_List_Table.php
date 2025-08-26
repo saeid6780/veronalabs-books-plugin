@@ -23,11 +23,11 @@ class Books_List_Table extends \WP_List_Table {
 
         $this->data = $wpdb->get_results( "
                                         SELECT bi.id, p.ID, p.post_title, p.post_date, bi.isbn
-            FROM {$this->book_info_table} bi
-            INNER JOIN {$wpdb->posts} p ON p.ID = bi.post_id
-            WHERE p.post_type = 'book' 
-            ORDER BY bi.id DESC
-            " , ARRAY_A );
+                                        FROM {$this->book_info_table} bi
+                                        INNER JOIN {$wpdb->posts} p ON p.ID = bi.post_id
+                                        WHERE p.post_type = 'book' 
+                                        ORDER BY bi.id DESC"
+                            , ARRAY_A );
     }
 
     function get_columns ()
@@ -90,8 +90,8 @@ class Books_List_Table extends \WP_List_Table {
          */
         function usort_reorder ( $a, $b )
         {
-            $orderby = ( ! empty( $_REQUEST['orderby'] ) ) ? $_REQUEST['orderby'] : 'id';//If no sort, default to id
-            $order   = ( ! empty( $_REQUEST['order'] ) ) ? $_REQUEST['order'] : 'DESC';//If no order, default to desc
+            $orderby = ( ! empty( $_REQUEST[ 'orderby' ] ) ) ? $_REQUEST[ 'orderby' ] : 'id';//If no sort, default to id
+            $order   = ( ! empty( $_REQUEST[ 'order' ] ) ) ? $_REQUEST[ 'order' ] : 'DESC';//If no order, default to desc
             $result  = strnatcmp( $a[ $orderby ], $b[ $orderby ] );//Determine sort order
 
             return ( $order === 'asc' ) ? $result : - $result;//Send final sort direction to usort
@@ -152,11 +152,11 @@ class Books_List_Table extends \WP_List_Table {
             case 'isbn':
                 return $item[ $column_name ] ?? '';
             case 'publisher':
-                $terms = wp_get_post_terms($item['ID'], 'publisher', ['fields' => 'names']);
-                return !empty($terms) ? implode(', ', $terms) : '-';
+                $terms = wp_get_post_terms( $item[ 'ID' ], 'publisher', [ 'fields' => 'names' ] );
+                return !empty( $terms ) ? implode(', ', $terms ) : '-';
             case 'authors':
-                $terms = wp_get_post_terms($item['ID'], 'book_author', ['fields' => 'names']);
-                return !empty($terms) ? implode(', ', $terms) : '-';
+                $terms = wp_get_post_terms( $item[ 'ID' ], 'book_author', [ 'fields' => 'names' ] );
+                return ! empty( $terms ) ? implode( ', ', $terms ) : '-';
 
             default:
                 return '';
@@ -186,7 +186,7 @@ class Books_List_Table extends \WP_List_Table {
      */
     protected function column_cb ( $item )
     {
-        return sprintf( '<label class="screen-reader-text" for="' . $item['id'] . '">' . sprintf( __( 'Select %s' ), $item['id'] ) . '</label>' . "<input type='checkbox' name='book_ids[]' id='{$item['id']}' value='{$item['ID']}' />" );
+        return sprintf( '<label class="screen-reader-text" for="' . $item[ 'id' ] . '">' . sprintf( __( 'Select %s' ), $item[ 'id' ] ) . '</label>' . "<input type='checkbox' name='book_ids[]' id='{$item[ 'id' ]}' value='{$item[ 'ID' ]}' />" );
     }
 
     function get_bulk_actions (): array
@@ -202,9 +202,8 @@ class Books_List_Table extends \WP_List_Table {
     {
         global $wpdb;
         $action = $this->current_action();
-        error_log($action);
 
-        if ( ! empty( $_REQUEST['s'] ) )
+        if ( ! empty( $_REQUEST[ 's' ] ) )
         {
             $search     = $_REQUEST['s'];
             $query      = "SELECT p.ID, p.post_title, p.post_date, p.post_content, bi.isbn, bi.ID id
@@ -216,15 +215,14 @@ class Books_List_Table extends \WP_List_Table {
             $this->data = $wpdb->get_results( $query, ARRAY_A );
         }
 
-        if ( isset( $_GET['id'] ) || isset( $_GET[ 'book_ids' ] ) )
+        if ( isset( $_GET[ 'id' ] ) || isset( $_GET[ 'book_ids' ] ) )
         {
 
             switch ( $action )
             {
                 case 'delete':
                     $id = $_GET['id'];
-                    $wpdb->delete("{$this->book_info_table}", ['post_id' => $id], ['%d']);
-                    error_log($wpdb->last_error);
+                    $wpdb->delete( "{$this->book_info_table}", [ 'post_id' => $id ], [ '%d' ] );
                     wp_delete_post( $id, true);
                     $this->data = $wpdb->get_results( "SELECT bi.id, p.ID, p.post_title, p.post_date, bi.isbn
                                                                 FROM {$this->book_info_table} bi
@@ -234,12 +232,12 @@ class Books_List_Table extends \WP_List_Table {
                     break;
 
                 case 'bulk_delete':
-                    $ids = isset($_REQUEST['book_ids']) ? array_map('intval', $_REQUEST['book_ids']) : [];
+                    $ids = isset( $_REQUEST[ 'book_ids' ] ) ? array_map( 'intval', $_REQUEST[ 'book_ids' ] ) : [];
 
                     foreach ( $ids as $id )
                     {
-                        $wpdb->delete("{$this->book_info_table}", ['post_id' => $id], ['%d']);
-                        wp_delete_post( $id, true);
+                        $wpdb->delete("{$this->book_info_table}", [ 'post_id' => $id], [ '%d' ] );
+                        wp_delete_post( $id, true );
                     }
 
                     $this->data = $wpdb->get_results( "SELECT bi.id, p.ID, p.post_title, p.post_date, bi.isbn

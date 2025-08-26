@@ -21,7 +21,6 @@ class IsbnValidator
             if ( $digit < 0) return false;
             $sum += ( $digit * ( 10 - $i ) );
         }
-        error_log('in 10 validator: ' . $sum % 11 );
         return $sum % 11 === 0;
     }
 
@@ -31,7 +30,6 @@ class IsbnValidator
         for ( $i = 0; $i < 13; $i++ ) {
             $sum += ( int )$isbn[ $i ] * ( $i % 2 === 0 ? 1 : 3 );
         }
-        error_log('in 13 validator: ' . $sum % 10 );
         return $sum % 10 === 0;
     }
 }

@@ -152,7 +152,7 @@ class BooksMetaBoxServiceProvider extends AbstractServiceProvider implements Boo
         );
 
         if ($existing) {
-            error_log($post_id . $existing->post_id);
+
             // If updating the same post, it's ok
             if ( $post_id && intval( $existing->post_id ) === $post_id ) {
                 wp_send_json( [ 'success' => true, 'data' => [ 'unique' => true ] ] );
