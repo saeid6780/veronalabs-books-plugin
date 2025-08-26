@@ -3,10 +3,17 @@ namespace BookInfoPlugin\Providers;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use League\Container\ServiceProvider\BootableServiceProviderInterface;
+use BookInfoPlugin\Admin\Books_List_Table;
 
 class BooksMenuServiceProvider extends AbstractServiceProvider implements BootableServiceProviderInterface
 {
-    public function register(): void {}
+    public function provides(string $id): bool {
+        return in_array($id, [Books_List_Table::class]);
+    }
+
+    public function register(): void {
+        $this->getContainer()->add(Books_List_Table::class);
+    }
 
     public function boot(): void
     {
@@ -69,12 +76,18 @@ class BooksMenuServiceProvider extends AbstractServiceProvider implements Bootab
      */
     public function render_books_list_page(): void
     {
+        /** @var Books_List_Table $table */
+        $table = $this->getContainer()->get( Books_List_Table::class );
+        $table->prepare_items();
         echo '<div class="wrap">';
         echo '<h1>' . esc_html__( 'Books List', BOOK_INFO_LABEL ) . '</h1>';
 
         // will complete after books wp_list_class implementation
-        echo '<p>' . esc_html__( 'Custom table of books (from book_info) will be rendered here.', BOOK_INFO_LABEL ) . '</p>';
-
+        echo '<form method="get">';
+        echo '<input type="hidden" name="page" value="' . $_REQUEST[ 'page' ] . '"/>';
+        $table->search_box( __( 'Book search', BOOK_INFO_LABEL ), 'search' );
+        $table->display();
+        echo '</form>';
         echo '</div>';
     }
 }
