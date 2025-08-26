@@ -5,41 +5,73 @@
 
 
 ## About
-Book Info WordPress Plugin Based on [Rabbit Framework](https://github.com/veronalabs/rabbit)
+A custom WordPress plugin developed with [Rabbit Framework](https://github.com/veronalabs/rabbit) that provides advanced management for books, including custom post types, taxonomies, and a dedicated database table for storing ISBNs.
 
 ## Requirements
 
 1. PHP 7.4 or higher.
 2. Composer
 
-## Development
+---
 
-If you are planning to add style to your plugin, make sure you have the following requirements:
-```bash
-node.js: <= v14.16.0
-npm: <= 6.14.11
-```
+## 📖 Features
 
-And run these commands:
+- **Custom Database Table**
+    - Automatically creates `books_info` table on activation.
+    - Stores ISBN numbers mapped to WordPress posts.
 
-**Install packages**
-```bash
-npm install
-```
+- **Custom Post Type: "Book"**
+    - Dedicated post type for books.
+    - Includes two taxonomies:
+        - **Publisher**
+        - **Authors**
 
-**Run the start command**
-```bash
-npm start
-// or
-npm run start
-```
+- **Meta Box for ISBN**
+    - ISBN field integrated into the Book edit screen.
+    - On save, ISBN is validated and stored in the custom table.
 
-### Commands
+- **Admin Table View**
+    - Custom admin page displaying all records from `books_info`.
+    - Implemented with `WP_List_Table` for native WordPress UI consistency.
 
-```
-"compile:scss" : Compiles scss files
-"postcss:autoprefixer": Parses your CSS and adds vendor prefixes
-"dev": Runs "compile:scss" and "postcss:autoprefixer" in a sequence
-"watch": Watches for changes in the /assets/src/scss/ folder and run "dev" command on every change
-"start": Runs "dev" and "watch" commands concurrently
-```
+---
+
+## 🛠 Development Guidelines Followed
+
+- **Framework & Architecture**
+    - Built with **Rabbit Framework**.
+    - Implemented **Dependency Injection** and **Service Architecture**.
+
+- **Version Control**
+    - Full development tracked with **Git**.
+    - Regular commits and clean history maintained.
+
+- **Internationalization (i18n)**
+    - All strings wrapped in WordPress translation functions.
+    - Ready for multilingual environments.
+
+- **Security**
+    - All inputs/outputs sanitized and validated.
+    - Follows WordPress coding standards and security best practices.
+
+---
+
+## 🌍 Extra Features
+
+- **Multilingual Compatibility**
+    - Fully internationalized, translation-ready.
+- **Code Quality & Design Patterns**
+    - Uses **Dependency Injection** and **Singleton Pattern** where applicable.
+- **Maintainability**
+    - Modular and clean service-oriented architecture.
+
+---
+
+## 📦 Installation
+
+1. Upload the plugin files to the `/wp-content/plugins/books-manager` directory, or install via WordPress Plugin Manager.
+2. Activate the plugin through the "Plugins" menu in WordPress.
+3. A new post type **"Book"** and taxonomies **Publisher** and **Authors** will be available.
+4. Manage ISBNs directly in the admin panel.
+
+---
