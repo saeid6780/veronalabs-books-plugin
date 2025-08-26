@@ -75,7 +75,7 @@ class BooksMetaBoxServiceProvider extends AbstractServiceProvider implements Boo
                     'ajax_url'      => admin_url( 'admin-ajax.php' ),
                     'nonce'         => wp_create_nonce( 'book_isbn_nonce' ),
                     'msg_required'  => __( 'The ISBN entered is not valid.', BOOK_INFO_LABEL ),
-                    'msg_duplicate' => __( 'این ISBN قبلاً ثبت شده است.', BOOK_INFO_LABEL ),
+                    'msg_duplicate' => __( 'This ISBN is already registered.', BOOK_INFO_LABEL ),
                 ]);
             }
         }

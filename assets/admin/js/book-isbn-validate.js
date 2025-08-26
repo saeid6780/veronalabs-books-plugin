@@ -1,5 +1,5 @@
 (function(){
-    var ERR_MSG = window.BookISBNValidation ? BookISBNValidation.msg_required : 'ISBN نامعتبر است';
+    var ERR_MSG = window.BookISBNValidation ? BookISBNValidation.msg_required : 'The ISBN entered is not valid.';
     var AJAX_URL = window.BookISBNValidation ? BookISBNValidation.ajax_url : '';
     var NONCE    = window.BookISBNValidation ? BookISBNValidation.nonce : '';
 
@@ -83,7 +83,7 @@
         checkUniqueIsbn(val,function(ok){
             if(!ok){
                 if(e){ e.preventDefault(); e.stopImmediatePropagation(); }
-                showInlineError(window.BookISBNValidation.msg_duplicate || 'این ISBN قبلاً استفاده شده است');
+                showInlineError(window.BookISBNValidation.msg_duplicate || 'This ISBN is already registered.');
                 if(done) done(false);
             } else {
                 clearInlineError();
@@ -148,8 +148,8 @@
                     if(e){ e.preventDefault(); e.stopImmediatePropagation(); }
                     hasTried=true;
                     notices.removeNotice('book-isbn-error');
-                    notices.createErrorNotice(window.BookISBNValidation.msg_duplicate || 'این ISBN قبلاً استفاده شده است', { id:'book-isbn-error', isDismissible:true });
-                    showInlineError(window.BookISBNValidation.msg_duplicate || 'این ISBN قبلاً استفاده شده است');
+                    notices.createErrorNotice(window.BookISBNValidation.msg_duplicate || 'This ISBN is already registered.', { id:'book-isbn-error', isDismissible:true });
+                    showInlineError(window.BookISBNValidation.msg_duplicate || 'This ISBN is already registered.');
                 } else {
                     clearInlineError();
                     notices.removeNotice('book-isbn-error');
